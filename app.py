@@ -8,12 +8,9 @@ from sentence_transformers import SentenceTransformer
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
 
-st.set_page_config(page_title="LinUCB Ad Recommender", layout="centered")
-st.title("📢 LinUCB Ad Recommender (Real Criteo Data + LLM Embeddings)")
-st.markdown("""
-This dashboard shows a LinUCB contextual bandit model trained on real Criteo data,
-enhanced with LLM embeddings from MiniLM for ad context enrichment.
-""")
+st.set_page_config(page_title="Ad Recommender with RL", layout="centered")
+st.title("Ad Recommender")
+
 
 
 @st.cache_data
