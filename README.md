@@ -1,4 +1,4 @@
-# Adaptive Ad Recommendation Engine with RL(LinUCB) & LLM Embeddings
+# Adaptive Ad Recommendation Engine with Reinforcement Learning(LinUCB) & LLM Embeddings
 
 This project implements a **contextual bandit–based ad recommender system** using the LinUCB algorithm, enhanced with **MiniLM sentence embeddings** for rich ad context. It is trained on a **real subset of the Criteo Click-Through Rate (CTR) dataset**, and deployed as an interactive dashboard via Streamlit.
 
