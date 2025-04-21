@@ -1,4 +1,4 @@
-# Streamlit App with Real Criteo Data Integration
+
 
 import streamlit as st
 import numpy as np
@@ -7,7 +7,7 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
-# ========== Section 1: Setup ==========
+
 st.set_page_config(page_title="LinUCB Ad Recommender", layout="centered")
 st.title("📢 LinUCB Ad Recommender (Real Criteo Data + LLM Embeddings)")
 st.markdown("""
@@ -15,7 +15,7 @@ This dashboard shows a LinUCB contextual bandit model trained on real Criteo dat
 enhanced with LLM embeddings from MiniLM for ad context enrichment.
 """)
 
-# Load preprocessed data (simulate loading previously computed)
+
 @st.cache_data
 def load_data():
     df = pd.read_csv("C:/Users/jwali/Downloads/Kaggle/RL/train.txt", sep="\t", header=None, nrows=10000)
@@ -23,7 +23,7 @@ def load_data():
     df.columns = columns
     df = df.dropna(subset=['label']).reset_index(drop=True)
 
-    # Preprocess
+    
     num_cols = ['I1', 'I2', 'I3']
     cat_cols = ['C1', 'C2']
     df[num_cols] = df[num_cols].fillna(0)
@@ -42,7 +42,7 @@ def load_data():
 
 df, X, y, X_cat = load_data()
 
-# Simulate ad text mapping from C1 values
+
 ad_texts = {
     0: "Discount running shoes for fitness lovers",
     1: "Zero-fee credit card with cashback rewards",
@@ -57,7 +57,7 @@ def load_embeddings():
 ad_embeddings = load_embeddings()
 embedding_dim = next(iter(ad_embeddings.values())).shape[0]
 
-# ========== LinUCB Class ==========
+
 class LinUCB:
     def __init__(self, n_arms, n_features, alpha=0.5):
         self.alpha = alpha
@@ -79,7 +79,7 @@ class LinUCB:
         self.A[chosen_arm] += np.outer(x, x)
         self.b[chosen_arm] += reward * x
 
-# ========== Training with Real Data ==========
+
 @st.cache_data
 def train_with_criteo(X, y, X_cat):
     arms = 3
@@ -101,7 +101,7 @@ def train_with_criteo(X, y, X_cat):
 
 agent, ctr_curve = train_with_criteo(X, y, X_cat)
 
-# ========== Visualization ==========
+
 st.subheader("📈 CTR Over Time on Criteo Data")
 fig, ax = plt.subplots(figsize=(8, 3))
 ax.plot(ctr_curve)
@@ -111,7 +111,7 @@ ax.set_ylabel("CTR")
 st.pyplot(fig)
 st.metric("Final CTR", f"{ctr_curve[-1]:.3f}")
 
-# ========== Live Prediction ==========
+
 st.subheader("🎮 Live Ad Recommendation")
 i = st.slider("Choose a row from dataset (0–9999)", 0, 9999, 0)
 x = X[i]
